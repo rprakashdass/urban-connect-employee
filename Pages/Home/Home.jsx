@@ -1,51 +1,66 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+const express = require("express");
+const db = require('./config/db');
+const cors = require("cors");
+const helmet = require('helmet');
+const app = express();
+require("dotenv").config();
+const cookieParser = require("cookie-parser");
 
-const Home = () => {
-  const navigate = useNavigate();
-  const [cookies, removeCookie] = useCookies([]);
-  const [username, setUsername] = useState("");
-  useEffect(() => {
-    const verifyCookie = async () => {
-      if (!cookies.token) {
-        console.log("token not found");
-        // navigate("/login");
-      }
-      const { data } = await axios.post(
-        "https://urban-connect.onrender.com/",
-        {},
-        { withCredentials: true }
-      );
-      const { status, user } = data;
-      setUsername(user);
-      return status
-        ? toast(`Hello ${user}`, {
-            position: "top-right",
-          })
-        : (removeCookie("token"), navigate("/login"));
-    };
-    verifyCookie();
-  }, [cookies, navigate, removeCookie]);
-  const Logout = () => {
-    removeCookie("token");
-    navigate("/signup");
-  };
-  return (  
-    <>
-      <div className="home_page">
-        <h4>
-          {" "}
-          Welcome <span>{username}</span>
-        </h4>
-        <button onClick={Logout}>LOGOUT</button>
-        <h2>Logged in as {username}</h2>
-      </div>
-      <ToastContainer />
-    </>
-  );
-};
+// Routes
+const authRoute = require("./Routes/AuthRoute");
 
-export default Home;
+const { PORT } = process.env;
+db();
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});
+
+// CORS
+app.use(
+  cors({
+    origin: [
+      "https://urban-connect-employee.onrender.com",
+      "http://localhost:5174", 
+      "http://localhost:5175", 
+      "http://localhost:5176"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
+// Helmet for security headers
+app.use(helmet());
+
+// custom CSP header via Helmet
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'none'"],
+      imgSrc: ["'self'", "data:", "https://urban-connect-employee.onrender.com"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      connectSrc: ["'self'"],
+    },
+  })
+);
+
+// Basic route
+app.get("/", (req, res) => {
+  res.send("Welcome");
+});
+
+// Middleware for cookies and JSON handling
+app.use(cookieParser());
+app.use(express.json());
+
+// Routes
+app.use("/", authRoute);
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something went wrong!");
+});
