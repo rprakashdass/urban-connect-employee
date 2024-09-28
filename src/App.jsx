@@ -5,7 +5,7 @@ import './App.css'
 // https://www.freecodecamp.org/news/how-to-secure-your-mern-stack-application/
 
 import { Route, Routes } from "react-router-dom";
-import { EmpLogin, EmpSignup, EmpHome } from "../Pages/";
+import { Login, Signup, Home } from "./Pages/index";
 
 function App() {
   return (
@@ -13,9 +13,9 @@ function App() {
       <Routes>
 
         {/* Employee */}
-        <Route path="/login" element={<EmpLogin/>} />
-        <Route path="/signup" element={<EmpSignup />} />
-        <Route path="/" element={<EmpHome />}/>
+        <Route path="/login" element={<Login/>} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Home />}/>
 
       </Routes>
     </div>

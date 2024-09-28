@@ -1,3 +1,3 @@
-export {default as EmpLogin} from './Login/Login';
-export {default as EmpSignup} from './SignUp/SignUp';
-export {default as EmpHome} from './Home/Home';
+export {default as Login} from './Login/Login';
+export {default as Signup} from './SignUp/SignUp';
+export {default as Home} from './Home/Home';
