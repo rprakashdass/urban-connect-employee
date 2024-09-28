@@ -15,7 +15,7 @@ const Home = () => {
         // navigate("/e/login");
       }
       const { data } = await axios.post(
-        "http://localhost:4000/e/",
+        "https://urban-connect.onrender.com/e/",
         {},
         { withCredentials: true }
       );
