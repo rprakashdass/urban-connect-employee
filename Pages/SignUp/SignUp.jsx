@@ -32,7 +32,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "https://urban-connect.onrender.com/e/signup",
+        "https://urban-connect.onrender.com/signup",
         {
           ...inputValue,
         },
@@ -94,7 +94,7 @@ const Signup = () => {
         </div>
         <button type="submit">Submit</button>
         <span>
-          Already have an account? <Link to={"/e/login"}>Login</Link>
+          Already have an account? <Link to={"/login"}>Login</Link>
         </span>
       </form>
       <ToastContainer />

@@ -11,11 +11,11 @@ const Home = () => {
   useEffect(() => {
     const verifyCookie = async () => {
       if (!cookies.token) {
-        console.log("token not found")
-        // navigate("/e/login");
+        console.log("token not found");
+        // navigate("/login");
       }
       const { data } = await axios.post(
-        "https://urban-connect.onrender.com/e/",
+        "https://urban-connect.onrender.com/",
         {},
         { withCredentials: true }
       );
@@ -25,13 +25,13 @@ const Home = () => {
         ? toast(`Hello ${user}`, {
             position: "top-right",
           })
-        : (removeCookie("token"), navigate("/e/login"));
+        : (removeCookie("token"), navigate("/login"));
     };
     verifyCookie();
   }, [cookies, navigate, removeCookie]);
   const Logout = () => {
     removeCookie("token");
-    navigate("/e/signup");
+    navigate("/signup");
   };
   return (  
     <>

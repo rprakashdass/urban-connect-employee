@@ -34,7 +34,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "https://urban-connect.onrender.com/e/login/",
+        "https://urban-connect.onrender.com/login/",
         { ...inputValue },
         { withCredentials: true }
       );
@@ -44,7 +44,7 @@ const Login = () => {
       if (success) {
         handleSuccess(message);
         setTimeout(() => {
-          navigate("/e/");
+          navigate("/");
         }, 1000);
       } else {
         handleError(message);
@@ -62,7 +62,7 @@ const Login = () => {
   };
 
   return (
-    <div className="form_container">
+    <div className="container form">
       <h2>Login Account</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -89,7 +89,7 @@ const Login = () => {
         </div>
         <button type="submit">Submit</button>
         <span>
-          Already have an account? <Link to="/e/signup">Signup</Link>
+          Already have an account? <Link to="/signup">Signup</Link>
         </span>
       </form>
       <ToastContainer />
