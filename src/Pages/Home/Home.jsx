@@ -15,7 +15,7 @@ const Home = () => {
         // navigate("/e/login");
       }
       const { data } = await axios.post(
-        "http://localhost:4000/e/",
+        "https://urban-connect.onrender.com/e/",
         {},
         { withCredentials: true }
       );
@@ -25,13 +25,13 @@ const Home = () => {
         ? toast(`Hello ${user}`, {
             position: "top-right",
           })
-        : (removeCookie("token"), navigate("/e/login"));
+        : (removeCookie("token"), navigate("/login"));
     };
     verifyCookie();
   }, [cookies, navigate, removeCookie]);
   const Logout = () => {
     removeCookie("token");
-    navigate("/e/signup");
+    navigate("/signup");
   };
   return (  
     <>
