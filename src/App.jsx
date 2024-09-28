@@ -5,7 +5,7 @@ import './App.css'
 // https://www.freecodecamp.org/news/how-to-secure-your-mern-stack-application/
 
 import { Route, Routes } from "react-router-dom";
-import { Login, Signup, Home } from "./Pages/index";
+import { Login, Signup, Home } from "./Pages/";
 
 function App() {
   return (
