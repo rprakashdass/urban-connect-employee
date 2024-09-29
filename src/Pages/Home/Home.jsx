@@ -25,13 +25,13 @@ const Home = () => {
         ? toast(`Hello ${user}`, {
             position: "top-right",
           })
-        : (removeCookie("token"), navigate("/login"));
+        : (removeCookie("token"), navigate("/e/login"));
     };
     verifyCookie();
   }, [cookies, navigate, removeCookie]);
   const Logout = () => {
     removeCookie("token");
-    navigate("/signup");
+    navigate("/e/signup");
   };
   return (  
     <>
